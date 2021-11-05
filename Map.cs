@@ -8,11 +8,12 @@ namespace FountainOfObjects
 {
     internal class Map
     {
-        private int X = 0;
-        private int Y = 0;
+        public int X { get; set; }
+        public int Y { get; set; }
         private bool FountainEnabled = false;
         private Player player = new Player();
         public bool victoryStatus = false;
+        private MovementCheck movementchecker = new MovementCheck();
 
         public void DrawMap()
         {
@@ -32,39 +33,37 @@ namespace FountainOfObjects
         {
             if (input == "east")
             {
-                if (CheckEast())
+                if (movementchecker.CheckEast(player.Y))
                     player.Y++;
             }
             if (input == "west")
             {
-                if (CheckWest())   
-                player.Y--;             
+                if (movementchecker.CheckWest(player.Y))
+                    player.Y--;
             }
             if (input == "north")
             {
-               if (CheckNorth())
-                player.X--;
+                if (movementchecker.CheckNorth(player.X))
+                    player.X--;
             }
             if (input == "south")
             {
-               if (CheckSouth())
-                player.X++;
+                if (movementchecker.CheckSouth(player.X))
+                    player.X++;
             }
             if (input == "enable fountain")
             {
-
-                if (X==0 & Y ==2)
+                if (X == 0 & Y == 2)
                 {
-                FountainEnabled = true;
+                    FountainEnabled = true;
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("Nice, it's now turned on!");
                 }
-            else
+                else
                 {
                     Console.WriteLine("There is no fountain here..");
                 }
             }
-
         }
 
         public void CheckSpecialPositions()
@@ -73,11 +72,11 @@ namespace FountainOfObjects
             //in foundtain room
             if (X == 0 && Y == 2)
             {
-                if(FountainEnabled == false)
+                if (FountainEnabled == false)
                 {
-                Console.WriteLine("You hear water dripping in this room. The Fountain of Objects is here!");
+                    Console.WriteLine("You hear water dripping in this room. The Fountain of Objects is here!");
                 }
-                else 
+                else
                 {
                     Console.WriteLine("The fountain is on, nothing to see here");
                 }
@@ -89,59 +88,16 @@ namespace FountainOfObjects
                 {
                     Console.WriteLine("The Fountain of Objects has been reactivated, and you have escaped with your life! You win!");
                     victoryStatus = true;
-                    
                 }
                 else
                 {
                     Console.WriteLine("You see light coming from the cavern entrance.");
-                   
                 }
             }
-          
-             Console.ResetColor();
-            if(victoryStatus == false)
+
+            Console.ResetColor();
+            if (victoryStatus == false)
                 Console.WriteLine("What do you want do do?");
         }
-
-        public bool CheckEast()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (Y <= 2)
-                return true;
-            else
-                Console.WriteLine("You cannot go that way");
-            return false;
-        }
-
-        public bool CheckWest()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (Y >= 1)
-                return true;
-            else
-                Console.WriteLine("You cannot go that way");
-            return false;
-        }
-
-        public bool CheckNorth()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (X >= 1)
-                return true;
-            else
-                Console.WriteLine("You cannot go that way");
-            return false;
-        }
-
-        public bool CheckSouth()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (X <= 2)
-                return true;
-            else
-                Console.WriteLine("You cannot go that way");
-            return false;
-        }
-       
     }
 }
