@@ -31,22 +31,22 @@ namespace FountainOfObjects
 
         public void PlayerMovement(string input)
         {
-            if (input == "east")
+            if (input == "go east")
             {
                 if (movementchecker.CheckEast(player.Y))
                     player.Y++;
             }
-            if (input == "west")
+            if (input == "go west")
             {
                 if (movementchecker.CheckWest(player.Y))
                     player.Y--;
             }
-            if (input == "north")
+            if (input == "go north")
             {
                 if (movementchecker.CheckNorth(player.X))
                     player.X--;
             }
-            if (input == "south")
+            if (input == "go south")
             {
                 if (movementchecker.CheckSouth(player.X))
                     player.X++;
